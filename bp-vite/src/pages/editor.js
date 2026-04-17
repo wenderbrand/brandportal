@@ -212,7 +212,7 @@ function renderSectionForm(section, data = {}) {
           </div>
         </div>
         <div id="assets-list" class="assets-list">
-          ${await renderAssetsList()}
+          <p style="font-size:var(--text-sm);color:var(--text-muted)">Carregando...</p>
         </div>
       </div>
     `
@@ -275,6 +275,10 @@ function bindSectionEvents(section) {
   }
 
   if (section === 'arquivos') {
+    renderAssetsList().then(html => {
+      const el = document.getElementById('assets-list')
+      if (el) el.innerHTML = html
+    })
     const fileZone = document.getElementById('files-upload-zone')
     const fileInput = document.getElementById('f-files')
     fileZone?.addEventListener('click', () => fileInput.click())
